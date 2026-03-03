@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developer & AI Toolkit</title>
+    <meta
+      name="description"
+      content="Apple 风格高级感工具导航页，聚合开发者与 AI 常用网站，支持一键部署到 Vercel。"
+    />
+    <style>
+      :root {
+        --bg: #f5f5f7;
+        --panel: rgba(255, 255, 255, 0.72);
+        --panel-strong: rgba(255, 255, 255, 0.9);
+        --text: #1d1d1f;
+        --muted: #6e6e73;
+        --line: rgba(29, 29, 31, 0.08);
+        --primary: #0071e3;
+        --primary-dark: #005ec3;
+        --radius-xl: 32px;
+        --radius-lg: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "SF Pro Display", "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(1200px 600px at 12% -10%, rgba(124, 158, 255, 0.2), transparent 60%),
+          radial-gradient(1000px 540px at 95% 10%, rgba(255, 145, 169, 0.16), transparent 55%),
+          linear-gradient(180deg, #ffffff 0%, var(--bg) 40%, #f1f2f6 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(1160px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        position: relative;
+        text-align: center;
+        padding: 96px 0 76px;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 48px 0 auto;
+        margin: 0 auto;
+        width: min(980px, 90%);
+        height: 360px;
+        background: linear-gradient(125deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.35));
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 40px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 30px 100px rgba(19, 26, 48, 0.08);
+        z-index: -1;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 999px;
+        padding: 9px 16px;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+        color: var(--primary);
+        background: rgba(0, 113, 227, 0.1);
+        border: 1px solid rgba(0, 113, 227, 0.18);
+      }
+
+      h1 {
+        margin: 20px 0 12px;
+        font-size: clamp(2.2rem, 6.6vw, 5rem);
+        letter-spacing: -0.04em;
+        line-height: 1.06;
+      }
+
+      .subtitle {
+        max-width: 760px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.8vw, 1.3rem);
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        text-decoration: none;
+        border-radius: 999px;
+        font-size: 15px;
+        padding: 11px 20px;
+        transition: all 0.22s ease;
+      }
+
+      .button-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .button-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .button-ghost {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid var(--line);
+      }
+
+      .button-ghost:hover {
+        background: #fff;
+      }
+
+      .section {
+        margin-bottom: 28px;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 12px;
+        margin: 0 2px 14px;
+      }
+
+      .section h2 {
+        margin: 0;
+        font-size: clamp(1.55rem, 3vw, 2.2rem);
+        letter-spacing: -0.025em;
+      }
+
+      .section p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+      }
+
+      .card {
+        grid-column: span 3;
+        min-height: 210px;
+        padding: 22px;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--line);
+        background: var(--panel);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+      }
+
+      .card.featured {
+        grid-column: span 6;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.55)),
+          radial-gradient(circle at top left, rgba(68, 139, 255, 0.15), transparent 55%);
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(0, 113, 227, 0.2);
+        box-shadow: 0 24px 42px rgba(0, 0, 0, 0.09);
+      }
+
+      .chip {
+        width: fit-content;
+        padding: 5px 11px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.05);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .card h3 {
+        margin: 10px 0 8px;
+        font-size: 1.45rem;
+        letter-spacing: -0.02em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .open {
+        margin-top: auto;
+        width: fit-content;
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 9px 14px;
+        font-size: 14px;
+        background: rgba(0, 113, 227, 0.1);
+        color: var(--primary);
+        border: 1px solid rgba(0, 113, 227, 0.18);
+      }
+
+      .open:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .panel {
+        margin: 18px 0 70px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        background: var(--panel-strong);
+        box-shadow: 0 24px 54px rgba(17, 22, 33, 0.08);
+        backdrop-filter: blur(16px);
+        padding: 24px;
+      }
+
+      footer {
+        margin: 24px auto 64px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 1000px) {
+        .card,
+        .card.featured {
+          grid-column: span 6;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .hero {
+          padding-top: 68px;
+        }
+
+        .hero::after {
+          height: 420px;
+          inset: 38px 0 auto;
+        }
+
+        .panel {
+          padding: 16px;
+          border-radius: 24px;
+        }
+
+        .card,
+        .card.featured {
+          grid-column: span 12;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero container">
+      <span class="badge"> Inspired · Pro Grade Navigation</span>
+      <h1>开发者与 AI 工具导航</h1>
+      <p class="subtitle">
+        更像 Apple 官网的高级视觉：大留白、柔和渐变与玻璃卡片。精选开发与 AI 工具，打开即用，部署即上线。
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#dev-tools">浏览开发工具</a>
+        <a class="button button-ghost" href="#ai-tools">查看 AI 工具</a>
+      </div>
+    </header>
+
+    <main class="container panel">
+      <section id="dev-tools" class="section">
+        <div class="section-header">
+          <h2>开发者常用工具</h2>
+          <p>接口调试 · 协作托管 · 在线可视化</p>
+        </div>
+        <div class="grid">
+          <article class="card featured">
+            <span class="chip">API 工作流</span>
+            <h3>Postman</h3>
+            <p>从接口调试到自动化测试，再到团队文档协作，适合完整 API 生命周期管理。</p>
+            <a class="open" href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+
+          <article class="card">
+            <span class="chip">轻量请求</span>
+            <h3>Hoppscotch</h3>
+            <p>开源在线 API 客户端，页面简洁、速度快，适合快速调试和临时协作。</p>
+            <a class="open" href="https://hoppscotch.io/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+
+          <article class="card">
+            <span class="chip">结构可视化</span>
+            <h3>JSON Crack</h3>
+            <p>将复杂 JSON 结构可视化为关系图，快速定位嵌套字段和数据层级。</p>
+            <a class="open" href="https://jsoncrack.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+
+          <article class="card">
+            <span class="chip">代码托管</span>
+            <h3>GitHub</h3>
+            <p>项目管理、CI/CD、Issue 与社区生态的核心平台，开发者的默认工作台。</p>
+            <a class="open" href="https://github.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="ai-tools" class="section">
+        <div class="section-header">
+          <h2>AI 常用工具</h2>
+          <p>通用助手 · 代码生成 · 内容创作</p>
+        </div>
+        <div class="grid">
+          <article class="card featured">
+            <span class="chip">全能助手</span>
+            <h3>ChatGPT</h3>
+            <p>覆盖写作、编程、总结、学习与问题拆解，是日常高频使用的智能生产力工具。</p>
+            <a class="open" href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+
+          <article class="card">
+            <span class="chip">代码理解</span>
+            <h3>Claude</h3>
+            <p>擅长长上下文分析与结构化输出，适用于复杂需求解读和代码重构建议。</p>
+            <a class="open" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+
+          <article class="card">
+            <span class="chip">视觉创作</span>
+            <h3>Midjourney</h3>
+            <p>文字驱动图像创作，适合提案视觉化、灵感草图和品牌概念探索。</p>
+            <a class="open" href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+
+          <article class="card">
+            <span class="chip">文档智能</span>
+            <h3>Notion AI</h3>
+            <p>把 AI 融入知识管理与团队协作，支持总结、续写、整理与行动项提炼。</p>
+            <a class="open" href="https://www.notion.so/product/ai" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">Minimal Luxury UI · Ready for Vercel Deployment</footer>
+  </body>
+</html>
