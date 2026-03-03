@@ -3,226 +3,362 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dev & AI Toolkit</title>
+    <title>Developer & AI Toolkit</title>
     <meta
       name="description"
-      content="简约 Apple 风格的开发者与 AI 工具导航页，可直接部署到 Vercel。"
+      content="Apple 风格高级感工具导航页，聚合开发者与 AI 常用网站，支持一键部署到 Vercel。"
     />
     <style>
       :root {
         --bg: #f5f5f7;
-        --card: rgba(255, 255, 255, 0.82);
+        --panel: rgba(255, 255, 255, 0.72);
+        --panel-strong: rgba(255, 255, 255, 0.9);
         --text: #1d1d1f;
-        --subtle: #6e6e73;
-        --line: rgba(0, 0, 0, 0.08);
+        --muted: #6e6e73;
+        --line: rgba(29, 29, 31, 0.08);
         --primary: #0071e3;
-        --hover: #0058b9;
-        --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        --primary-dark: #005ec3;
+        --radius-xl: 32px;
+        --radius-lg: 24px;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html,
       body {
         margin: 0;
-        font-family: "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        padding: 0;
+      }
+
+      body {
+        font-family: "SF Pro Display", "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
         color: var(--text);
-        background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 60%);
+        background:
+          radial-gradient(1200px 600px at 12% -10%, rgba(124, 158, 255, 0.2), transparent 60%),
+          radial-gradient(1000px 540px at 95% 10%, rgba(255, 145, 169, 0.16), transparent 55%),
+          linear-gradient(180deg, #ffffff 0%, var(--bg) 40%, #f1f2f6 100%);
+        min-height: 100vh;
       }
 
       .container {
-        width: min(1100px, calc(100% - 40px));
+        width: min(1160px, calc(100% - 40px));
         margin: 0 auto;
       }
 
-      header {
-        padding: 80px 0 40px;
+      .hero {
+        position: relative;
         text-align: center;
+        padding: 96px 0 76px;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 48px 0 auto;
+        margin: 0 auto;
+        width: min(980px, 90%);
+        height: 360px;
+        background: linear-gradient(125deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.35));
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 40px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 30px 100px rgba(19, 26, 48, 0.08);
+        z-index: -1;
       }
 
       .badge {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        padding: 8px 14px;
+        gap: 10px;
         border-radius: 999px;
-        background: rgba(0, 113, 227, 0.1);
+        padding: 9px 16px;
+        font-size: 14px;
+        letter-spacing: 0.01em;
         color: var(--primary);
-        margin-bottom: 20px;
+        background: rgba(0, 113, 227, 0.1);
+        border: 1px solid rgba(0, 113, 227, 0.18);
       }
 
       h1 {
-        margin: 0;
-        font-size: clamp(2rem, 5vw, 4rem);
-        letter-spacing: -0.03em;
+        margin: 20px 0 12px;
+        font-size: clamp(2.2rem, 6.6vw, 5rem);
+        letter-spacing: -0.04em;
+        line-height: 1.06;
       }
 
       .subtitle {
-        margin: 16px auto 0;
-        max-width: 680px;
-        font-size: 1.1rem;
-        color: var(--subtle);
+        max-width: 760px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.8vw, 1.3rem);
         line-height: 1.7;
       }
 
-      main {
-        padding-bottom: 64px;
+      .hero-actions {
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
       }
 
-      .section-title {
-        margin: 28px 0 18px;
-        font-size: 1.6rem;
-        letter-spacing: -0.02em;
+      .button {
+        text-decoration: none;
+        border-radius: 999px;
+        font-size: 15px;
+        padding: 11px 20px;
+        transition: all 0.22s ease;
+      }
+
+      .button-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .button-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .button-ghost {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid var(--line);
+      }
+
+      .button-ghost:hover {
+        background: #fff;
+      }
+
+      .section {
+        margin-bottom: 28px;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 12px;
+        margin: 0 2px 14px;
+      }
+
+      .section h2 {
+        margin: 0;
+        font-size: clamp(1.55rem, 3vw, 2.2rem);
+        letter-spacing: -0.025em;
+      }
+
+      .section p {
+        margin: 0;
+        color: var(--muted);
       }
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(12, 1fr);
         gap: 16px;
       }
 
       .card {
+        grid-column: span 3;
+        min-height: 210px;
+        padding: 22px;
+        border-radius: var(--radius-lg);
         border: 1px solid var(--line);
-        border-radius: 22px;
-        background: var(--card);
-        backdrop-filter: blur(8px);
-        box-shadow: var(--shadow);
-        padding: 20px;
+        background: var(--panel);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.05);
         display: flex;
         flex-direction: column;
-        min-height: 170px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+      }
+
+      .card.featured {
+        grid-column: span 6;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.55)),
+          radial-gradient(circle at top left, rgba(68, 139, 255, 0.15), transparent 55%);
       }
 
       .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.09);
-        border-color: rgba(0, 113, 227, 0.25);
-      }
-
-      .card h3 {
-        margin: 8px 0;
-        font-size: 1.15rem;
-      }
-
-      .card p {
-        margin: 0;
-        color: var(--subtle);
-        font-size: 0.95rem;
-        line-height: 1.65;
+        transform: translateY(-6px);
+        border-color: rgba(0, 113, 227, 0.2);
+        box-shadow: 0 24px 42px rgba(0, 0, 0, 0.09);
       }
 
       .chip {
         width: fit-content;
-        font-size: 12px;
-        padding: 4px 10px;
+        padding: 5px 11px;
         border-radius: 999px;
         background: rgba(0, 0, 0, 0.05);
-        color: var(--subtle);
+        color: var(--muted);
+        font-size: 12px;
       }
 
-      .card a {
+      .card h3 {
+        margin: 10px 0 8px;
+        font-size: 1.45rem;
+        letter-spacing: -0.02em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .open {
         margin-top: auto;
         width: fit-content;
         text-decoration: none;
-        color: #fff;
-        background: var(--primary);
         border-radius: 999px;
-        padding: 8px 14px;
+        padding: 9px 14px;
         font-size: 14px;
+        background: rgba(0, 113, 227, 0.1);
+        color: var(--primary);
+        border: 1px solid rgba(0, 113, 227, 0.18);
       }
 
-      .card a:hover {
-        background: var(--hover);
+      .open:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .panel {
+        margin: 18px 0 70px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        background: var(--panel-strong);
+        box-shadow: 0 24px 54px rgba(17, 22, 33, 0.08);
+        backdrop-filter: blur(16px);
+        padding: 24px;
       }
 
       footer {
-        padding: 30px 0 60px;
-        color: var(--subtle);
+        margin: 24px auto 64px;
         text-align: center;
+        color: var(--muted);
         font-size: 14px;
       }
 
-      @media (max-width: 640px) {
-        header {
-          padding-top: 48px;
+      @media (max-width: 1000px) {
+        .card,
+        .card.featured {
+          grid-column: span 6;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .hero {
+          padding-top: 68px;
+        }
+
+        .hero::after {
+          height: 420px;
+          inset: 38px 0 auto;
+        }
+
+        .panel {
+          padding: 16px;
+          border-radius: 24px;
+        }
+
+        .card,
+        .card.featured {
+          grid-column: span 12;
         }
       }
     </style>
   </head>
   <body>
-    <header class="container">
-      <div class="badge"> Inspired · Developer Productivity</div>
-      <h1>开发者 & AI 工具导航</h1>
+    <header class="hero container">
+      <span class="badge"> Inspired · Pro Grade Navigation</span>
+      <h1>开发者与 AI 工具导航</h1>
       <p class="subtitle">
-        一页直达你高频使用的开发与 AI 工具。简约设计、开箱即用，可直接部署到 Vercel。
+        更像 Apple 官网的高级视觉：大留白、柔和渐变与玻璃卡片。精选开发与 AI 工具，打开即用，部署即上线。
       </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#dev-tools">浏览开发工具</a>
+        <a class="button button-ghost" href="#ai-tools">查看 AI 工具</a>
+      </div>
     </header>
 
-    <main class="container">
-      <section>
-        <h2 class="section-title">开发者常用工具</h2>
+    <main class="container panel">
+      <section id="dev-tools" class="section">
+        <div class="section-header">
+          <h2>开发者常用工具</h2>
+          <p>接口调试 · 协作托管 · 在线可视化</p>
+        </div>
         <div class="grid">
-          <article class="card">
-            <span class="chip">API 调试</span>
+          <article class="card featured">
+            <span class="chip">API 工作流</span>
             <h3>Postman</h3>
-            <p>接口调试、文档协作与自动化测试一体化工具。</p>
-            <a href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>从接口调试到自动化测试，再到团队文档协作，适合完整 API 生命周期管理。</p>
+            <a class="open" href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
+
           <article class="card">
-            <span class="chip">网络请求</span>
+            <span class="chip">轻量请求</span>
             <h3>Hoppscotch</h3>
-            <p>轻量、开源、在线可用的 API 请求与测试平台。</p>
-            <a href="https://hoppscotch.io/" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>开源在线 API 客户端，页面简洁、速度快，适合快速调试和临时协作。</p>
+            <a class="open" href="https://hoppscotch.io/" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
+
           <article class="card">
-            <span class="chip">JSON 工具</span>
+            <span class="chip">结构可视化</span>
             <h3>JSON Crack</h3>
-            <p>将 JSON 可视化为结构图，便于理解复杂层级数据。</p>
-            <a href="https://jsoncrack.com/" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>将复杂 JSON 结构可视化为关系图，快速定位嵌套字段和数据层级。</p>
+            <a class="open" href="https://jsoncrack.com/" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
+
           <article class="card">
             <span class="chip">代码托管</span>
             <h3>GitHub</h3>
-            <p>代码管理、Issue 协作、CI/CD 与开源生态核心平台。</p>
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>项目管理、CI/CD、Issue 与社区生态的核心平台，开发者的默认工作台。</p>
+            <a class="open" href="https://github.com/" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
         </div>
       </section>
 
-      <section>
-        <h2 class="section-title">AI 常用工具</h2>
+      <section id="ai-tools" class="section">
+        <div class="section-header">
+          <h2>AI 常用工具</h2>
+          <p>通用助手 · 代码生成 · 内容创作</p>
+        </div>
         <div class="grid">
-          <article class="card">
-            <span class="chip">通用助手</span>
+          <article class="card featured">
+            <span class="chip">全能助手</span>
             <h3>ChatGPT</h3>
-            <p>适用于写作、编程、学习与效率提升的全能 AI 助手。</p>
-            <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>覆盖写作、编程、总结、学习与问题拆解，是日常高频使用的智能生产力工具。</p>
+            <a class="open" href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
+
           <article class="card">
-            <span class="chip">代码生成</span>
+            <span class="chip">代码理解</span>
             <h3>Claude</h3>
-            <p>适合长文本分析、需求拆解与代码生成的 AI 助手。</p>
-            <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>擅长长上下文分析与结构化输出，适用于复杂需求解读和代码重构建议。</p>
+            <a class="open" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
+
           <article class="card">
             <span class="chip">视觉创作</span>
             <h3>Midjourney</h3>
-            <p>通过文字描述生成视觉作品，适合灵感探索与设计草图。</p>
-            <a href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>文字驱动图像创作，适合提案视觉化、灵感草图和品牌概念探索。</p>
+            <a class="open" href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
+
           <article class="card">
-            <span class="chip">协作笔记</span>
+            <span class="chip">文档智能</span>
             <h3>Notion AI</h3>
-            <p>在文档协作场景中实现内容总结、续写与知识整理。</p>
-            <a href="https://www.notion.so/product/ai" target="_blank" rel="noopener noreferrer">打开</a>
+            <p>把 AI 融入知识管理与团队协作，支持总结、续写、整理与行动项提炼。</p>
+            <a class="open" href="https://www.notion.so/product/ai" target="_blank" rel="noopener noreferrer">打开</a>
           </article>
         </div>
       </section>
     </main>
 
-    <footer class="container">Made for Vercel Deploy · Minimal Apple-like UI</footer>
+    <footer class="container">Minimal Luxury UI · Ready for Vercel Deployment</footer>
   </body>
 </html>
