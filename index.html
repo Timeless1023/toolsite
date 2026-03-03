@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev & AI Toolkit</title>
+    <meta
+      name="description"
+      content="简约 Apple 风格的开发者与 AI 工具导航页，可直接部署到 Vercel。"
+    />
+    <style>
+      :root {
+        --bg: #f5f5f7;
+        --card: rgba(255, 255, 255, 0.82);
+        --text: #1d1d1f;
+        --subtle: #6e6e73;
+        --line: rgba(0, 0, 0, 0.08);
+        --primary: #0071e3;
+        --hover: #0058b9;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 60%);
+      }
+
+      .container {
+        width: min(1100px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 80px 0 40px;
+        text-align: center;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(0, 113, 227, 0.1);
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 4rem);
+        letter-spacing: -0.03em;
+      }
+
+      .subtitle {
+        margin: 16px auto 0;
+        max-width: 680px;
+        font-size: 1.1rem;
+        color: var(--subtle);
+        line-height: 1.7;
+      }
+
+      main {
+        padding-bottom: 64px;
+      }
+
+      .section-title {
+        margin: 28px 0 18px;
+        font-size: 1.6rem;
+        letter-spacing: -0.02em;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--card);
+        backdrop-filter: blur(8px);
+        box-shadow: var(--shadow);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        min-height: 170px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.09);
+        border-color: rgba(0, 113, 227, 0.25);
+      }
+
+      .card h3 {
+        margin: 8px 0;
+        font-size: 1.15rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--subtle);
+        font-size: 0.95rem;
+        line-height: 1.65;
+      }
+
+      .chip {
+        width: fit-content;
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.05);
+        color: var(--subtle);
+      }
+
+      .card a {
+        margin-top: auto;
+        width: fit-content;
+        text-decoration: none;
+        color: #fff;
+        background: var(--primary);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+
+      .card a:hover {
+        background: var(--hover);
+      }
+
+      footer {
+        padding: 30px 0 60px;
+        color: var(--subtle);
+        text-align: center;
+        font-size: 14px;
+      }
+
+      @media (max-width: 640px) {
+        header {
+          padding-top: 48px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <div class="badge"> Inspired · Developer Productivity</div>
+      <h1>开发者 & AI 工具导航</h1>
+      <p class="subtitle">
+        一页直达你高频使用的开发与 AI 工具。简约设计、开箱即用，可直接部署到 Vercel。
+      </p>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2 class="section-title">开发者常用工具</h2>
+        <div class="grid">
+          <article class="card">
+            <span class="chip">API 调试</span>
+            <h3>Postman</h3>
+            <p>接口调试、文档协作与自动化测试一体化工具。</p>
+            <a href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+          <article class="card">
+            <span class="chip">网络请求</span>
+            <h3>Hoppscotch</h3>
+            <p>轻量、开源、在线可用的 API 请求与测试平台。</p>
+            <a href="https://hoppscotch.io/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+          <article class="card">
+            <span class="chip">JSON 工具</span>
+            <h3>JSON Crack</h3>
+            <p>将 JSON 可视化为结构图，便于理解复杂层级数据。</p>
+            <a href="https://jsoncrack.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+          <article class="card">
+            <span class="chip">代码托管</span>
+            <h3>GitHub</h3>
+            <p>代码管理、Issue 协作、CI/CD 与开源生态核心平台。</p>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">AI 常用工具</h2>
+        <div class="grid">
+          <article class="card">
+            <span class="chip">通用助手</span>
+            <h3>ChatGPT</h3>
+            <p>适用于写作、编程、学习与效率提升的全能 AI 助手。</p>
+            <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+          <article class="card">
+            <span class="chip">代码生成</span>
+            <h3>Claude</h3>
+            <p>适合长文本分析、需求拆解与代码生成的 AI 助手。</p>
+            <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+          <article class="card">
+            <span class="chip">视觉创作</span>
+            <h3>Midjourney</h3>
+            <p>通过文字描述生成视觉作品，适合灵感探索与设计草图。</p>
+            <a href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+          <article class="card">
+            <span class="chip">协作笔记</span>
+            <h3>Notion AI</h3>
+            <p>在文档协作场景中实现内容总结、续写与知识整理。</p>
+            <a href="https://www.notion.so/product/ai" target="_blank" rel="noopener noreferrer">打开</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">Made for Vercel Deploy · Minimal Apple-like UI</footer>
+  </body>
+</html>
